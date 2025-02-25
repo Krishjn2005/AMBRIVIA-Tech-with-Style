@@ -57,3 +57,31 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(card);
     });
 });
+
+// Newsletter form submission
+function handleNewsletterSubmit(event) {
+    event.preventDefault();
+    const email = event.target.querySelector('input[type="email"]').value;
+    
+    // In a real application, you would send this to your backend
+    console.log('Newsletter subscription for:', email);
+    
+    // Show success message
+    alert('Thank you for subscribing to our newsletter!');
+    event.target.reset();
+}
+
+// Cart functionality
+let cartCount = 0;
+const cartCountElement = document.getElementById('cartCount');
+
+function updateCartCount(count) {
+    cartCount = count;
+    cartCountElement.textContent = count;
+}
+
+// Initialize any necessary elements when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize cart count
+    updateCartCount(0);
+});
