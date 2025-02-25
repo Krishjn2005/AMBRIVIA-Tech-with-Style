@@ -134,6 +134,20 @@ body::before {
     background: var(--input-bg);
     color: var(--text-color);
     transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.input-group input {
+    padding: 12px 12px 12px 0;
+}
+
+#username {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+#password {
+    padding-right: 40px;
 }
 
 .input-group input:focus {
@@ -145,6 +159,8 @@ body::before {
 .toggle-password {
     position: absolute;
     right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
     background: none;
     border: none;
     color: var(--text-color);
@@ -155,6 +171,7 @@ body::before {
     align-items: center;
     justify-content: center;
     transition: opacity 0.3s ease;
+    z-index: 2;
 }
 
 .toggle-password:hover {
