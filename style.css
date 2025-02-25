@@ -68,11 +68,12 @@ body::before {
     max-width: 400px;
     margin: 50px auto;
     padding: 2rem;
-    background: var(--input-bg);
-    border-radius: 20px;
-    box-shadow: 0 15px 35px var(--shadow-color);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    border: 1px solid var(--border-color);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
     transform: translateY(0);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -137,6 +138,19 @@ body::before {
     font-size: 16px;
 }
 
+.input-group input:hover {
+    border-color: rgba(139, 69, 19, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(139, 69, 19, 0.1);
+}
+
+.input-group input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.2);
+    transform: translateY(-1px);
+}
+
 .input-group input {
     padding: 12px 12px 12px 0;
 }
@@ -148,12 +162,6 @@ body::before {
 
 #password {
     padding-right: 40px;
-}
-
-.input-group input:focus {
-    border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
 .toggle-password {
@@ -219,6 +227,39 @@ body::before {
     cursor: pointer;
 }
 
+.remember-me input[type="checkbox"] {
+    position: relative;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.remember-me input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 3px;
+    background: var(--input-bg);
+    transition: all 0.2s ease;
+}
+
+.remember-me input[type="checkbox"]:checked::before {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.remember-me input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: -2px;
+    left: 3px;
+    color: white;
+    font-size: 12px;
+}
+
 .forgot-password {
     color: var(--primary-color);
     text-decoration: none;
@@ -238,41 +279,66 @@ body::before {
     font-weight: 600;
     position: relative;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .login-btn:hover {
-    background: #A0522D; /* Sienna */
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px var(--shadow-color);
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(139, 69, 19, 0.2);
+}
+
+.login-btn.loading {
+    background: var(--primary-color);
+    pointer-events: none;
 }
 
 .login-btn.loading span {
     opacity: 0;
 }
 
-.login-btn.loading .loader {
-    opacity: 1;
-}
-
-/* Loader */
-.loader {
+.login-btn .loader {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 20px;
     height: 20px;
-    border: 2px solid #fff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
-    border-top-color: transparent;
+    border-top-color: #fff;
     opacity: 0;
-    animation: spin 1s linear infinite;
+    transition: opacity 0.2s;
+}
+
+.login-btn.loading .loader {
+    opacity: 1;
+    animation: spin 0.8s infinite linear;
 }
 
 @keyframes spin {
     to {
         transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.login-btn .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
     }
 }
 
@@ -306,6 +372,11 @@ body::before {
 /* Google Sign-In */
 .google-btn-container {
     margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.google-btn-container:hover {
+    transform: translateY(-1px);
 }
 
 /* Sign Up Link */
@@ -317,6 +388,16 @@ body::before {
 .signup-link a {
     color: var(--primary-color);
     text-decoration: none;
+}
+
+/* Three.js Canvas Styling */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 
 /* Responsive Design */

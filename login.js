@@ -80,65 +80,129 @@ passwordInput.addEventListener('input', (e) => {
     checkPasswordStrength(e.target.value);
 });
 
-// Form Validation
-const loginForm = document.getElementById('loginForm');
-const usernameInput = document.getElementById('username');
-const usernameError = document.getElementById('usernameError');
-const passwordError = document.getElementById('passwordError');
-
-function validateForm() {
-    let isValid = true;
-
-    if (usernameInput.value.length < 3) {
-        usernameError.textContent = 'Username must be at least 3 characters long';
-        isValid = false;
-    } else {
-        usernameError.textContent = '';
+// Add ripple effect to buttons
+function createRipple(event) {
+    const button = event.currentTarget;
+    const ripple = document.createElement('span');
+    const rect = button.getBoundingClientRect();
+    
+    const diameter = Math.max(rect.width, rect.height);
+    const radius = diameter / 2;
+    
+    ripple.style.width = ripple.style.height = `${diameter}px`;
+    ripple.style.left = `${event.clientX - rect.left - radius}px`;
+    ripple.style.top = `${event.clientY - rect.top - radius}px`;
+    ripple.className = 'ripple';
+    
+    const existingRipple = button.querySelector('.ripple');
+    if (existingRipple) {
+        existingRipple.remove();
     }
-
-    if (passwordInput.value.length < 8) {
-        passwordError.textContent = 'Password must be at least 8 characters long';
-        isValid = false;
-    } else {
-        passwordError.textContent = '';
-    }
-
-    return isValid;
+    
+    button.appendChild(ripple);
+    
+    ripple.addEventListener('animationend', () => {
+        ripple.remove();
+    });
 }
 
-// Handle Login
+// Toggle password visibility
+function togglePassword() {
+    const passwordInput = document.getElementById('password');
+    const toggleButton = document.querySelector('.toggle-password i');
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleButton.classList.remove('fa-eye');
+        toggleButton.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        toggleButton.classList.remove('fa-eye-slash');
+        toggleButton.classList.add('fa-eye');
+    }
+}
+
+// Handle form submission with loading state
 function handleLogin(event) {
     event.preventDefault();
     
-    if (!validateForm()) return;
-
-    const loginBtn = loginForm.querySelector('.login-btn');
-    loginBtn.classList.add('loading');
+    const form = event.target;
+    const button = form.querySelector('.login-btn');
+    const username = form.querySelector('#username').value;
+    const password = form.querySelector('#password').value;
+    
+    if (!validateForm(username, password)) {
+        return;
+    }
+    
+    // Add loading state
+    button.classList.add('loading');
     
     // Simulate API call
     setTimeout(() => {
-        const username = usernameInput.value;
-        const password = passwordInput.value;
-        const rememberMe = document.getElementById('rememberMe').checked;
-
-        // In a real application, you would make an API call here
-        console.log('Login attempt:', { username, password, rememberMe });
-
-        if (rememberMe) {
-            localStorage.setItem('rememberedUser', username);
-        } else {
-            localStorage.removeItem('rememberedUser');
-        }
-
-        // Simulate successful login
-        loginBtn.classList.remove('loading');
+        button.classList.remove('loading');
         window.location.href = 'home.html';
     }, 1500);
 }
 
-// Check for remembered user
-const rememberedUser = localStorage.getItem('rememberedUser');
-if (rememberedUser) {
-    usernameInput.value = rememberedUser;
-    document.getElementById('rememberMe').checked = true;
+// Form validation
+function validateForm(username, password) {
+    let isValid = true;
+    const usernameError = document.getElementById('usernameError');
+    const passwordError = document.getElementById('passwordError');
+    
+    usernameError.textContent = '';
+    passwordError.textContent = '';
+    
+    if (username.length < 3) {
+        usernameError.textContent = 'Username must be at least 3 characters';
+        isValid = false;
+    }
+    
+    if (password.length < 6) {
+        passwordError.textContent = 'Password must be at least 6 characters';
+        isValid = false;
+    }
+    
+    return isValid;
 }
+
+// Remember me functionality
+function handleRememberMe() {
+    const rememberMe = document.getElementById('rememberMe');
+    const username = document.getElementById('username');
+
+    if (rememberMe.checked) {
+        localStorage.setItem('rememberedUser', username.value);
+    } else {
+        localStorage.removeItem('rememberedUser');
+    }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    // Add ripple effect to buttons
+    const buttons = document.querySelectorAll('.login-btn, .google-btn-container button');
+    buttons.forEach(button => {
+        button.addEventListener('click', createRipple);
+    });
+    
+    // Handle form submission
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+    
+    // Handle remember me
+    const rememberMe = document.getElementById('rememberMe');
+    if (rememberMe) {
+        rememberMe.addEventListener('change', handleRememberMe);
+    }
+    
+    // Check for remembered user
+    const rememberedUser = localStorage.getItem('rememberedUser');
+    if (rememberedUser) {
+        document.getElementById('username').value = rememberedUser;
+        document.getElementById('rememberMe').checked = true;
+    }
+});

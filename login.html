@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - AMBRIVIA</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- 3D Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
     <!-- Theme Toggle -->
     <button id="themeToggle" class="theme-toggle">
         <i class="fas fa-moon"></i>
@@ -17,7 +22,7 @@
     <div class="login-container">
         <div class="login-header">
             <h1>WELCOME TO AMBRIVIA</h1>
-            <p>Sign in to continue</p>
+            <p>Sign-in to continue</p>
         </div>
 
         <!-- Login Form -->
@@ -47,7 +52,7 @@
 
             <div class="form-options">
                 <label class="remember-me">
-                    <input type="checkbox" id="rememberMe">
+                    <input type="checkbox" id="rememberMe" name="rememberMe">
                     <span class="checkmark"></span>
                     Remember me
                 </label>
@@ -87,6 +92,7 @@
         </div>
     </div>
 
+    <script src="three-background.js"></script>
     <script>
         function handleLogin(event) {
             event.preventDefault();
