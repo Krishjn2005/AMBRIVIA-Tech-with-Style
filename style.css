@@ -116,6 +116,7 @@ body::before {
     position: relative;
     display: flex;
     align-items: center;
+    margin-bottom: 5px;
 }
 
 .input-group i {
@@ -127,9 +128,9 @@ body::before {
 
 .input-group input {
     width: 100%;
-    padding: 0.8rem 1rem 0.8rem 2.5rem;
+    padding: 12px;
     border: 1px solid var(--border-color);
-    border-radius: 5px;
+    border-radius: 8px;
     background: var(--input-bg);
     color: var(--text-color);
     transition: all 0.3s ease;
@@ -143,12 +144,25 @@ body::before {
 
 .toggle-password {
     position: absolute;
-    right: 1rem;
+    right: 12px;
     background: none;
     border: none;
     color: var(--text-color);
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+.toggle-password:hover {
+    opacity: 1;
+}
+
+.toggle-password i {
+    font-size: 18px;
 }
 
 /* Password Strength */

@@ -34,9 +34,8 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <div class="input-group">
-                    <i class="fas fa-lock"></i>
                     <input type="password" id="password" name="password" required>
-                    <button type="button" class="toggle-password">
+                    <button type="button" class="toggle-password" onclick="togglePassword()">
                         <i class="fas fa-eye"></i>
                     </button>
                 </div>
@@ -102,6 +101,15 @@
             console.log("Encoded JWT ID token: " + response.credential);
             // Redirect to home page after Google sign-in
             window.location.href = 'home.html';
+        }
+
+        function togglePassword() {
+            var passwordInput = document.getElementById("password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
         }
     </script>
 </body>
