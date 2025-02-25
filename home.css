@@ -1,3 +1,48 @@
+/* Add this to your home.css */
+body {
+    margin: 0;
+    padding: 0;
+    animation: backgroundChange 15s ease-in-out infinite;
+    min-height: 100vh;
+}
+
+@keyframes backgroundChange {
+    0% {
+        background-color: #F5F5DC; /* Beige */
+    }
+    33% {
+        background-color: #FFFFFF; /* White */
+    }
+    66% {
+        background-color: #D2B48C; /* Light Brown */
+    }
+    100% {
+        background-color: #F5F5DC; /* Back to Beige */
+    }
+}
+
+/* Add this if you want a gradient effect */
+.gradient-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at center,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+
+
+
+
+
 :root {
     --primary-color: #8B4513;
     --secondary-color: #F5F5DC;
