@@ -1,56 +1,28 @@
-/* Add this to your home.css */
-body {
-    margin: 0;
-    padding: 0;
-    animation: backgroundChange 15s ease-in-out infinite;
-    min-height: 100vh;
-}
-
-@keyframes backgroundChange {
-    0% {
-        background-color: #F5F5DC; /* Beige */
-    }
-    33% {
-        background-color: #FFFFFF; /* White */
-    }
-    66% {
-        background-color: #D2B48C; /* Light Brown */
-    }
-    100% {
-        background-color: #F5F5DC; /* Back to Beige */
-    }
-}
-
-/* Add this if you want a gradient effect */
-.gradient-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-        circle at center,
-        transparent 0%,
-        rgba(255, 255, 255, 0.1) 100%
-    );
-    pointer-events: none;
-    z-index: 1;
-}
-
-
-
-
-
-
-
+/* Theme Variables */
 :root {
     --primary-color: #8B4513;
     --secondary-color: #F5F5DC;
     --accent-color: #A0522D;
     --text-color: #333;
+    --bg-color: #F5F5DC;
+    --input-bg: rgba(255, 255, 255, 0.95);
+    --border-color: rgba(139, 69, 19, 0.2);
+    --error-color: #ff4d4d;
+    --success-color: #23ff23;
+    --shadow-color: rgba(139, 69, 19, 0.3);
     --white: #ffffff;
 }
 
+/* Dark Theme */
+.dark-theme {
+    --primary-color: #A0522D;
+    --text-color: #F5F5DC;
+    --bg-color: #2C1810;
+    --input-bg: rgba(32, 19, 12, 0.95);
+    --border-color: rgba(160, 82, 45, 0.4);
+}
+
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -58,12 +30,145 @@ body {
 }
 
 body {
+    margin: 0;
+    padding: 0;
     font-family: 'Poppins', sans-serif;
-    background: var(--secondary-color);
+    background-image: url('https://source.unsplash.com/1920x1080/?wood,texture');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: var(--text-color);
+    transition: all 0.3s ease;
+    min-height: 100vh;
     overflow-x: hidden;
+    animation: backgroundChange 15s ease-in-out infinite;
 }
 
+@keyframes backgroundChange {
+    0% { background-color: var(--bg-color); }
+    33% { background-color: var(--white); }
+    66% { background-color: var(--secondary-color); }
+    100% { background-color: var(--bg-color); }
+}
+
+/* Login Styles */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px var(--shadow-color);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.login-header p {
+    margin: 0.5rem 0 0;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--input-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.input-group input:hover {
+    border-color: rgba(139, 69, 19, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(139, 69, 19, 0.1);
+}
+
+.input-group input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.2);
+    transform: translateY(-1px);
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-color);
+    opacity: 0.6;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.toggle-password:hover {
+    opacity: 1;
+}
+
+.password-strength {
+    margin-top: 0.5rem;
+    height: 4px;
+    background: var(--border-color);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0;
+    background: var(--success-color);
+    transition: all 0.3s ease;
+}
+
+/* Main Content Styles */
 .hero {
     min-height: 100vh;
     padding: 2rem;
@@ -402,15 +507,41 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Animations */
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(50px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@keyframes slideShow {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
 }
 
 @keyframes fadeIn {
@@ -419,15 +550,6 @@ body {
     }
     to {
         opacity: 1;
-    }
-}
-
-@keyframes slideShow {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
     }
 }
 
