@@ -29,9 +29,15 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
     font-family: 'Poppins', sans-serif;
     background-image: url('https://source.unsplash.com/1920x1080/?wood,texture');
     background-size: cover;
@@ -40,21 +46,23 @@ body {
     color: var(--text-color);
     transition: all 0.3s ease;
     min-height: 100vh;
-    overflow-x: hidden;
-    animation: backgroundChange 15s ease-in-out infinite;
+    position: relative;
 }
 
-@keyframes backgroundChange {
-    0% { background-color: var(--bg-color); }
-    33% { background-color: var(--white); }
-    66% { background-color: var(--secondary-color); }
-    100% { background-color: var(--bg-color); }
+/* Canvas Styles */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 
 /* Login Styles */
 .login-container {
     max-width: 400px;
-    margin: 50px auto;
+    margin: 0 auto;
     padding: 2rem;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -64,6 +72,8 @@ body {
     border-radius: 20px;
     transform: translateY(0);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 
 .login-container:hover {
